@@ -11,7 +11,7 @@ import app.morphe.patcher.patch.rawResourcePatch
  */
 internal fun nativeEndpointsPatch(name: String, description: String, hosts: List<Pair<String, String>>) =
     rawResourcePatch(name = name, description = description, default = false) {
-        compatibleWith(COMPATIBILITY_QUETTA)
+        compatibleWith(COMPATIBILITY_QUETTA, COMPATIBILITY_QUETTA_OFFICIAL)
 
         execute {
             var changed = 0

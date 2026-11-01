@@ -49,7 +49,7 @@ val quettaNetworkSecurityPatch = resourcePatch(
         "user-installed CAs.",
     default = false
 ) {
-    compatibleWith(COMPATIBILITY_QUETTA)
+    compatibleWith(COMPATIBILITY_QUETTA, COMPATIBILITY_QUETTA_OFFICIAL)
 
     execute {
         var path: String? = null
@@ -73,7 +73,7 @@ val quettaRemoveQueryAllPackagesPatch = resourcePatch(
         "May degrade installed-app detection.",
     default = false
 ) {
-    compatibleWith(COMPATIBILITY_QUETTA)
+    compatibleWith(COMPATIBILITY_QUETTA, COMPATIBILITY_QUETTA_OFFICIAL)
 
     execute {
         document("AndroidManifest.xml").use { document ->

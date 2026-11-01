@@ -38,7 +38,7 @@ val analyticsEndpointsPatch = bytecodePatch(
         "non-resolvable domain, so they cannot be uploaded.",
     default = false
 ) {
-    compatibleWith(COMPATIBILITY_QUETTA)
+    compatibleWith(COMPATIBILITY_QUETTA, COMPATIBILITY_QUETTA_OFFICIAL)
 
     dependsOn(nativeAnalyticsEndpointsPatch)
 
@@ -54,7 +54,7 @@ val vendorEndpointsPatch = bytecodePatch(
         "non-resolvable domain. Site icons and start page suggestions stop loading.",
     default = false
 ) {
-    compatibleWith(COMPATIBILITY_QUETTA)
+    compatibleWith(COMPATIBILITY_QUETTA, COMPATIBILITY_QUETTA_OFFICIAL)
 
     dependsOn(nativeVendorEndpointsPatch)
 
@@ -70,7 +70,7 @@ val updatePushEndpointsPatch = bytecodePatch(
         "domain. Component and ad-block list updates stop, and push notifications do not arrive.",
     default = false
 ) {
-    compatibleWith(COMPATIBILITY_QUETTA)
+    compatibleWith(COMPATIBILITY_QUETTA, COMPATIBILITY_QUETTA_OFFICIAL)
 
     dependsOn(nativeUpdatePushEndpointsPatch)
 
