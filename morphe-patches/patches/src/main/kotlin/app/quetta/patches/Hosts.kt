@@ -14,6 +14,9 @@ private fun deadHost(host: String): String {
 private fun deadHosts(vararg hosts: String): List<Pair<String, String>> =
     hosts.sortedByDescending { it.length }.map { it to deadHost(it) }
 
+/** The strings a group writes; finding one proves the group already ran on this APK. */
+internal fun List<Pair<String, String>>.deadMarkers(): Set<String> = map { it.second }.toSet()
+
 /** Usage reporting, crash reporting and telemetry beacons. */
 internal val ANALYTICS_HOSTS = deadHosts(
     "firebase-settings.crashlytics.com",   // Crashlytics settings and crash upload

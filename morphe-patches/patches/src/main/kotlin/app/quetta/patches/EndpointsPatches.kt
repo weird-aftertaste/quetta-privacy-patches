@@ -1,7 +1,35 @@
 package app.quetta.patches
 
+import app.morphe.patcher.patch.BytecodePatchContext
+
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.bytecodePatch
+
+/**
+ * Common handling for a group of endpoint replacements.
+ *
+ * Re-running a patch on an APK that was already processed is a no-op: the group's own dead markers
+ * prove an earlier run, so failing would only break users who patch twice. A group whose hosts are
+ * absent *and* never replaced means the app moved its endpoints, which is a real failure.
+ */
+private fun BytecodePatchContext.rewriteGroup(
+    label: String,
+    hosts: List<Pair<String, String>>
+) {
+    val result = rewriteHosts(hosts)
+    when {
+        result.rewritten > 0 ->
+            println("$label: rewrote ${result.rewritten} string(s)")
+
+        result.alreadyPatched ->
+            println("$label: already patched, nothing to change")
+
+        else -> throw PatchException(
+            "none of the expected hosts were found, so the app moved or removed them. " +
+                "Searched for: " + hosts.joinToString { it.first }
+        )
+    }
+}
 
 @Suppress("unused")
 val analyticsEndpointsPatch = bytecodePatch(
@@ -15,10 +43,7 @@ val analyticsEndpointsPatch = bytecodePatch(
     dependsOn(nativeAnalyticsEndpointsPatch)
 
     execute {
-        val rewritten = rewriteHosts(ANALYTICS_HOSTS)
-        if (rewritten == 0) {
-            throw PatchException("no analytics endpoint found - the app layout changed, update the host list")
-        }
+        rewriteGroup("analytics endpoints", ANALYTICS_HOSTS)
     }
 }
 
@@ -34,10 +59,7 @@ val vendorEndpointsPatch = bytecodePatch(
     dependsOn(nativeVendorEndpointsPatch)
 
     execute {
-        val rewritten = rewriteHosts(VENDOR_HOSTS)
-        if (rewritten == 0) {
-            throw PatchException("no vendor endpoint found - the app layout changed, update the host list")
-        }
+        rewriteGroup("vendor endpoints", VENDOR_HOSTS)
     }
 }
 
@@ -53,9 +75,6 @@ val updatePushEndpointsPatch = bytecodePatch(
     dependsOn(nativeUpdatePushEndpointsPatch)
 
     execute {
-        val rewritten = rewriteHosts(UPDATE_PUSH_HOSTS)
-        if (rewritten == 0) {
-            throw PatchException("no update or push endpoint found - the app layout changed, update the host list")
-        }
+        rewriteGroup("update and push endpoints", UPDATE_PUSH_HOSTS)
     }
 }

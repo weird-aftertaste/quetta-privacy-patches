@@ -16,20 +16,34 @@ private fun String.replaceHosts(hosts: List<Pair<String, String>>): String {
     return value
 }
 
+/** Outcome of [rewriteHosts]: what changed, and whether an earlier run already neutralised the group. */
+internal class HostRewrite(val rewritten: Int, val alreadyPatched: Boolean)
+
 /**
  * Rewrite every string constant that contains one of [hosts].
  *
- * Returns the number of rewritten instructions. Longest hosts are matched first (see [Hosts]),
- * so a replacement never feeds a later one.
+ * Longest hosts are matched first (see [Hosts]), so a replacement never feeds a later one.
+ * [HostRewrite.alreadyPatched] is set when the group's own dead markers are already present, which
+ * makes re-patching an already processed APK a no-op instead of a failure.
  */
-internal fun BytecodePatchContext.rewriteHosts(hosts: List<Pair<String, String>>): Int {
+internal fun BytecodePatchContext.rewriteHosts(hosts: List<Pair<String, String>>): HostRewrite {
+    val markers = hosts.deadMarkers()
     val classesWithHosts = mutableListOf<ClassDef>()
+    var alreadyPatched = false
+
+    // One scan decides both questions: which classes need rewriting, and whether this APK already
+    // carries the markers a previous run wrote.
     classDefForEach { classDef ->
-        val found = classDef.methods.any { method ->
-            method.implementation?.instructions?.any { instruction ->
+        var found = false
+        for (method in classDef.methods) {
+            val instructions = method.implementation?.instructions ?: continue
+            for (instruction in instructions) {
                 val reference = (instruction as? ReferenceInstruction)?.reference
-                reference is StringReference && reference.string.replaceHosts(hosts) != reference.string
-            } == true
+                if (reference !is StringReference) continue
+                val value = reference.string
+                if (!alreadyPatched && markers.any { value.contains(it) }) alreadyPatched = true
+                if (!found && value.replaceHosts(hosts) != value) found = true
+            }
         }
         if (found) classesWithHosts += classDef
     }
@@ -50,5 +64,5 @@ internal fun BytecodePatchContext.rewriteHosts(hosts: List<Pair<String, String>>
             }
         }
     }
-    return rewritten
+    return HostRewrite(rewritten, alreadyPatched)
 }
