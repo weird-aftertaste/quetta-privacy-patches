@@ -7,15 +7,13 @@ on:
       - main
       - dev
 
-defaults:
-  run:
-    working-directory: morphe-patches
-
 jobs:
   release:
     name: Release
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
       packages: read
       id-token: write
       attestations: write
@@ -40,23 +38,32 @@ jobs:
           cache-dependency-path: morphe-patches/package-lock.json
 
       - name: Install dependencies
+        working-directory: morphe-patches
         run: npm install
 
+      # The CLI is used instead of an action so semantic-release runs inside the patch project,
+      # where .releaserc and package.json live, and no default npm plugin is injected.
       - name: Release
-        uses: cycjimmy/semantic-release-action@v8
         id: release
+        working-directory: morphe-patches
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MORPHE_SIGNING_KEY: ${{ secrets.MORPHE_SIGNING_KEY }}
+        run: npx semantic-release
 
       - name: Attest
-        if: steps.release.outputs.new_release_published == 'true'
+        if: steps.release.outcome == 'success'
         uses: actions/attest-build-provenance@v1
+        continue-on-error: true
         with:
-          subject-name: Quetta Privacy Patches ${{ steps.release.outputs.new_release_git_tag }}
+          subject-name: Quetta Privacy Patches
           subject-path: morphe-patches/patches/build/libs/patches-*.mpp
 
-      # Always verify compilation when semantic-release did not publish a release.
+      # Always verify compilation when no release was produced.
       - name: Verify project compiles
-        if: steps.release.outputs.new_release_published != 'true'
+        if: steps.release.outcome != 'success'
+        working-directory: morphe-patches
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew :patches:buildAndroid clean --no-daemon
