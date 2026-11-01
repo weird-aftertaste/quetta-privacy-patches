@@ -1,7 +1,8 @@
 {
-  "created_at": "",
-  "description": "",
-  "download_url": "",
+  "created_at": "2026-11-01T08:03:53",
+  "description": "## 1.0.0 (2026-11-01)\n\n### ⚠ BREAKING CHANGES\n\n* patch names changed. \"Strip telemetry endpoints\" and \"Strip\ntelemetry endpoints from native libraries\" no longer exist; enable the new\nper-group patches instead.\n\n### ✨ New Features\n\n* scope patches to Quetta 2.2.0, split endpoints, add release pipeline ([cd97a68](https://github.com/weird-aftertaste/quetta-privacy-patches/commit/cd97a686fad9b4ba252fa48980135f3682e0e13e))",
+  "download_url": "https://github.com/weird-aftertaste/quetta-privacy-patches/releases/download/v1.0.0/patches-1.0.0.mpp",
   "signature_download_url": "",
-  "version": ""
+  "version": "1.0.0",
+  "public_key": "aaQi2fFIFrrvZzHIQVSIHi96CCdHJ8ei7lzlDnQCXLk="
 }
