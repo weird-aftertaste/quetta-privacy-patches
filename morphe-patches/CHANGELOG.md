@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.1...v1.0.2) (2026-11-01)
+
+### 🐛 Bug Fixes
+
+* stage the root bundle manifest so the release commit carries it ([a061f04](https://github.com/weird-aftertaste/quetta-privacy-patches/commit/a061f04d1a50ac013b730719c36bae4a480159f3))
+
 ## [1.0.1](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.0...v1.0.1) (2026-11-01)
 
 ### 🐛 Bug Fixes
