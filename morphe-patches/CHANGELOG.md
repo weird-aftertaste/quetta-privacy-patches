@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.3...v1.1.0) (2026-11-01)
+
+### ✨ New Features
+
+* support the official 2.0.9 APK from quetta.net ([3ea1258](https://github.com/weird-aftertaste/quetta-privacy-patches/commit/3ea1258d9736a6c1525847f4084973de6e36f07b))
+
 ## [1.0.3](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.2...v1.0.3) (2026-11-01)
 
 ### 🐛 Bug Fixes

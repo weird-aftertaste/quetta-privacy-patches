@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "patches": [
     {
       "name": "Disable update and push endpoints",
@@ -19,6 +19,24 @@
           "targets": [
             {
               "version": "2.2.0",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -52,6 +70,24 @@
               "description": null
             }
           ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
         }
       ],
       "options": []
@@ -73,6 +109,24 @@
           "targets": [
             {
               "version": "2.2.0",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -106,6 +160,24 @@
               "description": null
             }
           ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
         }
       ],
       "options": []
@@ -127,6 +199,24 @@
           "targets": [
             {
               "version": "2.2.0",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -160,6 +250,24 @@
               "description": null
             }
           ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
         }
       ],
       "options": []
@@ -187,6 +295,24 @@
               "description": null
             }
           ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
         }
       ],
       "options": []
@@ -208,6 +334,24 @@
           "targets": [
             {
               "version": "2.2.0",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        },
+        {
+          "packageName": "net.quetta.browser.official",
+          "name": "Quetta Browser (official APK)",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.0.9",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
