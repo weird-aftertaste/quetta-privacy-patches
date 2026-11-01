@@ -51,17 +51,30 @@ jobs:
           MORPHE_SIGNING_KEY: ${{ secrets.MORPHE_SIGNING_KEY }}
         run: npx semantic-release
 
+      # semantic-release succeeds whether or not it published anything, so a tag on HEAD is the
+      # only reliable signal that a release was created.
+      - name: Detect published release
+        id: published
+        run: |
+          git fetch --tags --force --quiet
+          if git describe --tags --exact-match HEAD > /dev/null 2>&1; then
+            echo "value=true" >> "$GITHUB_OUTPUT"
+            echo "release published: $(git describe --tags --exact-match HEAD)"
+          else
+            echo "value=false" >> "$GITHUB_OUTPUT"
+            echo "no release published; verifying compilation instead"
+          fi
+
       - name: Attest
-        if: steps.release.outcome == 'success'
+        if: steps.published.outputs.value == 'true'
         uses: actions/attest-build-provenance@v1
         continue-on-error: true
         with:
           subject-name: Quetta Privacy Patches
           subject-path: morphe-patches/patches/build/libs/patches-*.mpp
 
-      # Always verify compilation when no release was produced.
       - name: Verify project compiles
-        if: steps.release.outcome != 'success'
+        if: steps.published.outputs.value != 'true'
         working-directory: morphe-patches
         env:
           GITHUB_ACTOR: ${{ github.actor }}
