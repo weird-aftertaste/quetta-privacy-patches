@@ -1,10 +1,8 @@
 package app.quetta.patches
 
 /**
- * Hosts that report usage, crashes or browsing metadata.
- *
- * Replacements are generated from the source host so both sides always have the same byte
- * length; a length mismatch shifts everything after it in a native library and breaks dlopen.
+ * Replacements are generated from the source host, so both sides always have the same byte
+ * length: a length mismatch shifts everything after it in a native library and breaks dlopen.
  * `.invalid` is reserved by RFC 2606, so it can never resolve.
  */
 private fun deadHost(host: String): String {
@@ -12,39 +10,36 @@ private fun deadHost(host: String): String {
     return "b" + "0".repeat(host.length - 9) + ".invalid"
 }
 
-private val TRACKED_HOSTS = listOf(
-    // GA4 / Firebase Analytics / Crashlytics / FCM identifiers
+/** Longest first, so a shorter host never rewrites part of a longer one. */
+private fun deadHosts(vararg hosts: String): List<Pair<String, String>> =
+    hosts.sortedByDescending { it.length }.map { it to deadHost(it) }
+
+/** Usage reporting, crash reporting and telemetry beacons. */
+internal val ANALYTICS_HOSTS = deadHosts(
+    "firebase-settings.crashlytics.com",   // Crashlytics settings and crash upload
+    "chromereporting-pa.googleapis.com",   // Chromium reporting
+    "app-measurement.com",                 // GA4 upload
+    "google-analytics.com",                // legacy GA
+    "crashpad.chromium.org",               // Chromium native crash uploader
+    "sentry.thefrodo.com",                 // crash minidump uploader
+)
+
+/** Quetta's own tracking surface: favicon proxy, start page, video sniffing, share links. */
+internal val VENDOR_HOSTS = deadHosts(
+    "qt.quetta.net",                       // start page, search suggestions, wallpapers
+    "ai.quetta.net",                       // server-side video sniffing
+    "go.quetta.net",                       // share links
+    "bcp.quetta.net",                      // unattributed vendor endpoint
+    "f.quetta.net",                        // favicon and extension icon proxy
+)
+
+/** Component updates and push registration. Disabling these has visible feature costs. */
+internal val UPDATE_PUSH_HOSTS = deadHosts(
     "firebaseperusertopics-pa.googleapis.com",
     "firebaseinstallations.googleapis.com",
-    "firebase-settings.crashlytics.com",
-    "chromereporting-pa.googleapis.com",
     "fcmregistrations.googleapis.com",
-    "pagead2.googlesyndication.com",
-    "google-analytics.com",
-    "app-measurement.com",
-    // crash dumps
-    "crashpad.chromium.org",
-    "sentry.thefrodo.com",
-    // vendor infrastructure: update poll, favicon proxy, start page, video AI, share links
     "test-update.quetta.net",
     "test-omaha.quetta.net",
     "update.quetta.net",
     "omaha.quetta.net",
-    "qt.quetta.net",
-    "ai.quetta.net",
-    "go.quetta.net",
-    "f.quetta.net",
-    "bcp.quetta.net",
 )
-
-/** Longest first, so a shorter host never rewrites part of a longer one. */
-internal val DEAD_HOSTS: List<Pair<String, String>> =
-    TRACKED_HOSTS.sortedByDescending { it.length }.map { it to deadHost(it) }
-
-internal fun String.deadHosts(): String {
-    var value = this
-    for ((from, to) in DEAD_HOSTS) {
-        if (value.contains(from)) value = value.replace(from, to)
-    }
-    return value
-}

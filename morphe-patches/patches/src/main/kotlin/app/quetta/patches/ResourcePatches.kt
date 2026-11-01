@@ -49,6 +49,8 @@ val quettaNetworkSecurityPatch = resourcePatch(
         "user-installed CAs.",
     default = false
 ) {
+    compatibleWith(COMPATIBILITY_QUETTA)
+
     execute {
         var path: String? = null
         document("AndroidManifest.xml").use { path = networkSecurityConfigPath(it) }
@@ -71,6 +73,8 @@ val quettaRemoveQueryAllPackagesPatch = resourcePatch(
         "May degrade installed-app detection.",
     default = false
 ) {
+    compatibleWith(COMPATIBILITY_QUETTA)
+
     execute {
         document("AndroidManifest.xml").use { document ->
             val nodes = document.getElementsByTagName("uses-permission")
