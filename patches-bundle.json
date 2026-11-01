@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-11-01T08:13:56",
-  "description": "## [1.0.2](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.1...v1.0.2) (2026-11-01)\n\n### 🐛 Bug Fixes\n\n* stage the root bundle manifest so the release commit carries it ([a061f04](https://github.com/weird-aftertaste/quetta-privacy-patches/commit/a061f04d1a50ac013b730719c36bae4a480159f3))",
-  "download_url": "https://github.com/weird-aftertaste/quetta-privacy-patches/releases/download/v1.0.2/patches-1.0.2.mpp",
+  "created_at": "2026-11-01T08:31:53",
+  "description": "## [1.0.3](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.2...v1.0.3) (2026-11-01)\n\n### 🐛 Bug Fixes\n\n* re-patching an already processed APK is a no-op ([cba482e](https://github.com/weird-aftertaste/quetta-privacy-patches/commit/cba482ef3130537bced83b509a1201f4fdb74d22))",
+  "download_url": "https://github.com/weird-aftertaste/quetta-privacy-patches/releases/download/v1.0.3/patches-1.0.3.mpp",
   "signature_download_url": "",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "public_key": "aaQi2fFIFrrvZzHIQVSIHi96CCdHJ8ei7lzlDnQCXLk="
 }

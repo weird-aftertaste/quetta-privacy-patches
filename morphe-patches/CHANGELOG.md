@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.2...v1.0.3) (2026-11-01)
+
+### 🐛 Bug Fixes
+
+* re-patching an already processed APK is a no-op ([cba482e](https://github.com/weird-aftertaste/quetta-privacy-patches/commit/cba482ef3130537bced83b509a1201f4fdb74d22))
+
 ## [1.0.2](https://github.com/weird-aftertaste/quetta-privacy-patches/compare/v1.0.1...v1.0.2) (2026-11-01)
 
 ### 🐛 Bug Fixes
